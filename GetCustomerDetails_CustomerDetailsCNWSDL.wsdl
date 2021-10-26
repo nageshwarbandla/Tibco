@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.tibco.com/GetCustomerDetails/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="GetCustomerDetails" targetNamespace="http://www.tibco.com/GetCustomerDetails/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.tibco.com/GetCustomerDetails/" targetNamespace="http://www.tibco.com/GetCustomerDetails/">
+      <xsd:complexType name="CustomerDetails">
+        <xsd:sequence>
+          <xsd:element name="CustomerID" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="CustomerDetailsRes">
+        <xsd:sequence>
+          <xsd:element name="CustID" type="xsd:string"/>
+          <xsd:element name="CustName" type="xsd:string"/>
+          <xsd:element name="CustAddress" type="xsd:string"/>
+          <xsd:element name="CustSal" type="xsd:string"/>
+          <xsd:element name="CustrProof" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="NewOperationRequest">
+    <wsdl:part name="NewOperationRequest" type="tns:CustomerDetails"/>
+  </wsdl:message>
+  <wsdl:message name="NewOperationResponse">
+    <wsdl:part name="NewOperationResponse" type="tns:CustomerDetailsRes"/>
+  </wsdl:message>
+  <wsdl:portType name="GetCustomerDetails">
+    <wsdl:operation name="NewOperation">
+      <wsdl:input message="tns:NewOperationRequest"/>
+      <wsdl:output message="tns:NewOperationResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SOAPServiceBinding1" type="tns:GetCustomerDetails">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="NewOperation">
+      <soap:operation soapAction="NewOperation" style="rpc"/>
+      <wsdl:input>
+        <soap:body parts="NewOperationRequest" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="NewOperationResponse" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="GetCustomerDetails">
+    <wsdl:port binding="tns:SOAPServiceBinding1" name="GetCustomerDetailsSOAP">
+      <soap:address location="http://localhost:5678/SOAPServiceBinding1/getCustomerDetails/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

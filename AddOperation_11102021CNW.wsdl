@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.tibco.com/AddOperation/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="AddOperation1" targetNamespace="http://www.tibco.com/AddOperation/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.tibco.com/AddOperation/" targetNamespace="http://www.tibco.com/AddOperation/">
+      <xsd:complexType name="Req">
+        <xsd:sequence>
+          <xsd:element name="Num1" type="xsd:int"/>
+          <xsd:element name="Num2" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Res">
+        <xsd:sequence>
+          <xsd:element name="Result" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="AddOperationRequest">
+    <wsdl:part name="AddOperationRequest" type="tns:Req"/>
+  </wsdl:message>
+  <wsdl:message name="AddOperationResponse">
+    <wsdl:part name="AddOperationResponse" type="tns:Res"/>
+  </wsdl:message>
+  <wsdl:portType name="AddOperation">
+    <wsdl:operation name="AddOperation">
+      <wsdl:input message="tns:AddOperationRequest"/>
+      <wsdl:output message="tns:AddOperationResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SOAPServiceBinding1" type="tns:AddOperation">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="AddOperation">
+      <soap:operation soapAction="AddOperation" style="rpc"/>
+      <wsdl:input>
+        <soap:body parts="AddOperationRequest" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="AddOperationResponse" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AddOperation1">
+    <wsdl:port binding="tns:SOAPServiceBinding1" name="AddOperation1SOAP">
+      <soap:address location="http://localhost:1234/SOAPServiceBinding1/addOperation1/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

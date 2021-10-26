@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.tibco.com/Sub/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="Sub" targetNamespace="http://www.tibco.com/Sub/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.tibco.com/Sub/" targetNamespace="http://www.tibco.com/Sub/">
+      <xsd:complexType name="Req">
+        <xsd:sequence>
+          <xsd:element name="Num1" type="xsd:int"/>
+          <xsd:element name="Num2" type="xsd:int"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Res">
+        <xsd:sequence>
+          <xsd:element name="Result" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="SubOperationRequest">
+    <wsdl:part name="SubOperationRequest" type="tns:Req"/>
+  </wsdl:message>
+  <wsdl:message name="SubOperationResponse">
+    <wsdl:part name="SubOperationResponse" type="tns:Res"/>
+  </wsdl:message>
+  <wsdl:portType name="Sub">
+    <wsdl:operation name="SubOperation">
+      <wsdl:input message="tns:SubOperationRequest"/>
+      <wsdl:output message="tns:SubOperationResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SOAPServiceBinding1" type="tns:Sub">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="SubOperation">
+      <soap:operation soapAction="SubOperation" style="rpc"/>
+      <wsdl:input>
+        <soap:body parts="SubOperationRequest" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="SubOperationResponse" use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Sub">
+    <wsdl:port binding="tns:SOAPServiceBinding1" name="SubSOAP">
+      <soap:address location="http://localhost:8080/SOAPServiceBinding1/sub/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
